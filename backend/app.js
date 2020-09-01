@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const Post = require('./models/post');
+const { PostsService } = require('../src/app/posts/posts.service');
 
 const app = express();
 
@@ -78,6 +79,17 @@ app.get('/api/posts',(req, res, next) => {
     .catch();
 });
 
+app.get("/api/posts/:id", (req, res, next)=>{
+  PostsService.findById(req.params.id)
+    .then(post => {
+      if (post){
+        res.status(200).json(post)
+      }
+      else {
+        res.status(404).json({message: 'Post not found!'});
+      }
+    });
+})
 
 app.delete("/api/posts/:id", (req, res, next) => {
   // console.log(req.params.id);
