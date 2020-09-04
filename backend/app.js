@@ -2,12 +2,13 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const config = require ('./config.json');
 
 const postRoutes = require("./routes/posts");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://admin:R4aD7dEGNEyZM8Ij@cluster0.pnqxp.mongodb.net/mean-course?retryWrites=true&w=majority")
+mongoose.connect(config.mongoURI)
 .then(() => {
   console.log('Connected to database!');
 })
